@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\Models\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -33,13 +33,24 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'mobile' => ['required', 'numeric'],
+            'image' => ['required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+        // dd($request->all());
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('vendor/images'), $imageName);
+        }
+        $user = Admin::create([
 
-        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'mobile' => $request->mobile,
+             'image'=> $request->image,
             'password' => Hash::make($request->password),
+
         ]);
 
         event(new Registered($user));

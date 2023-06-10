@@ -72,7 +72,8 @@ class AdminController extends Controller
                $image_temp =$request->file('admin_image'); 
                 if($image_temp->isValid())
 
-                { $ext = $image_temp->getClientOriginalExtension(); 
+                { 
+                    $ext = $image_temp->getClientOriginalExtension(); 
                      $imageName =rand(111,999).'.'.$ext;
                  $imagePath = 'admin/images/photos/'.$imageName; 
                     Image::make($image_temp)->save($imagePath); }
@@ -292,7 +293,7 @@ else{
  {
     $vendorDetails=Admin::with('vendorPersonal','vendorBusiness','vendorBank')->where('id',$id)->first();
     $vendorDetails=json_decode(json_encode($vendorDetails),true);
-// dd($vendorDetails);
+dd($vendorDetails);
     return view('admin.admins.view_vendor_details')->with(compact('vendorDetails'));
  }
  public function apdateAdminStatus(Request $request){

@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
-            $table->string('vendor_id');
+            $table->string('type')->default('vendor');
+            $table->string('vendor_id')->default('0');
             $table->string('mobile');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('image');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default('0');
             $table->timestamps();
         });
     }

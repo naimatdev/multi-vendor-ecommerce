@@ -44,7 +44,7 @@
                         @foreach ($categories as $category )
                         <tr>
                             <td>
-                             {{  }}
+                            2
                           
                             </td>
                             <td>

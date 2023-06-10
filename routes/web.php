@@ -1,11 +1,11 @@
 <?php
-// use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\admin\AdminController;
-// use App\Http\Controllers\admin\sectionController;
-// use App\Http\Controllers\admin\categoryController;
-// use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\sectionController;
+use App\Http\Controllers\admin\categoryController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Middleware;
-// use App\Models\Admin;
+use App\Models\Admin;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,29 +31,28 @@ Route::middleware('auth')->group(function () {
 
 });
 // Route::get('admin/dashboard',[adminController::class,'dashboard']);
-Route::get('/',[AdminController::class,'dashboard']);
+Route::get('/',[AdminController::class,'login']);
 
-   Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function(){
-  
+Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function(){
     Route::match(['get','post'],'login','AdminController@login');
-    Route::group(['middleware'=>['admin']],function(){
-        
+  
+        Route::group(['middleware'=>['admin']],function(){
        
         Route::get('/dashboard',[AdminController::class,'dashboard']);
         // update admin password
         Route::match(['get', 'post'], 'update-admin-password', 'AdminController@updateAdminPassword') ;
         Route::post( 'check-admin-password', 'AdminController@checkAdminPassword') ;
-//  update admin details
-   
-Route::match(['get', 'post'], 'update-admin-detail','AdminController@updateAdminDetail');
-Route::match(['get', 'post'], 'update-vendor-details/{slug}','AdminController@updateVendorDetail');
-            
+        //  update admin details
+        
+        Route::match(['get', 'post'], 'update-admin-detail','AdminController@updateAdminDetail');
+        Route::match(['get', 'post'], 'update-vendor-details/{slug}','AdminController@updateVendorDetail');
+                    
 
-Route::get('/admins/{type?}','AdminController@Admins');
-Route::get('view-vendor-details/{id}','AdminController@viewVendorDetails');
-Route::post('/apdate-admin-status', 'AdminController@apdateAdminStatus');
+        Route::get('/admins/{type?}','AdminController@Admins');
+        Route::get('view-vendor-details/{id}','AdminController@viewVendorDetails');
+        Route::post('/apdate-admin-status', 'AdminController@apdateAdminStatus');
 
-Route::get('/test','AdminController@Test');
+        Route::get('/test','AdminController@Test');
 
         
         // admin logout

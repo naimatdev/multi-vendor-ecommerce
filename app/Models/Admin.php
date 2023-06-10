@@ -10,6 +10,16 @@ class Admin extends Authenticable
 {
     use HasFactory;
     protected $guard = 'admin';
+    protected $fillable = [
+        'name',
+        'type',
+        'vendor_id',
+        'mobile',
+        'email',
+        'password',
+        'image',
+        'status',
+    ];
     public function vendorPersonal()
     {
         return $this->belongsTo('App\Models\Vendor','vendor_id');

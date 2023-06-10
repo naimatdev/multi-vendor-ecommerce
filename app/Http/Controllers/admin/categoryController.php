@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Section;
 use Image;
@@ -19,12 +20,13 @@ class categoryController extends Controller
       $categories = DB::table('categories')
       ->join('sections', 'categories.section_id', '=', 'sections.id')
       ->select('categories.*', 'sections.name')->get()->toArray();
-      echo "<pre>"; dd($categories['id']);die;
+    //   echo "<pre>"; dd($categories['id']);die;
         //  dd($categories); die;
         // $vendorDetails=Admin::with('vendorPersonal','vendorBusiness','vendorBank')->where('id',$id)->first();
         // $vendorDetails=json_decode(json_encode($vendorDetails),true);
-        // view('table', ['categories' => $categories]);
-        return view('admin.categories.categories',[ 'categories'=>$categories]); 
+    //    return view('table', ['categories' => $categories]);
+    
+          return view('admin.categories.categories',[ 'categories'=>$categories]); 
     }
     // update Categories Status
     public function updateCategoryStatus(Request $request){
@@ -32,6 +34,7 @@ class categoryController extends Controller
         if($request->ajax()){
             
             $data= $request->all();
+         
    if($data['status']=="active"){
        $status = 1;
    //   Admin::where('id', $data['admin_id'])->update(['status' => $status]);
